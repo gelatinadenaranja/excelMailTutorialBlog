@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Blog</title>
+    <link href="./css/mainStyleSheet.css" rel="stylesheet">
+    <script src="./js/main.js" defer></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="button-div">
+            <div class="lang-div">
+                <button id="ES-btn" class="head-button">ES</button>
+                <img id="lang-toggle" src="./images/arrow.svg">
+                <img id="lang-spacer" src="./images/arrow.svg">
+                <button id="EN-btn" class="head-button">EN</button>
+            </div>
+
+            <button id="light-btn" class="head-button"><img src="./images/theme-btn.svg"></button>
+        </div>
+        <div class="content-ES content-text">
+            En esta guía se explicará como crear una planilla de Excel para enviar e-mails creados con plantillas a distintas listas de direcciones, todo desde cero, empezando con una planilla en blanco. <br>
+             Se utilizará VBA y una hoja de cálculo con formato xlsm para guardar el código que escribamos.
+        </div>
+        <div class="content-EN content-text">
+            This guide will explain how to create an Excel spreadsheet to send e-mails based on templates to different e-mail address lists, all from scratch, starting with a blank spreadsheet. <br>
+             We will use VBA and a spreadsheet in .xlsm format to save the code we write.
+        </div>
+        <!--Content table-->
+        <div class="content-table">
+            <h2 class="content-ES header">Tabla de contenido</h2>
+            <h2 class="content-EN header">Content table</h2>
+            <ol class="content-ES" type="1">
+                <a href="#setup-ES" class="table-item"><li>Preparación</li></a>
+                <a href="#formulas-ES" class="table-item"><li>Hojas y fórmulas</li></a>
+                <a href="#code-ES" class="table-item"><li>Código y controles</li></a>
+                <a href="#style-ES" class="table-item"><li>Reglas de estilo</li></a>
+            </ol>
+            <ol class="content-EN" type="1">
+                <a href="#setup-EN" class="table-item"><li>Setup</li></a>
+                <a href="#formulas-EN" class="table-item"><li>Sheets and formulas</li></a>
+                <a href="#code-EN" class="table-item"><li>Code and controls</li></a>
+                <a href="#style-EN" class="table-item"><li>Style rules</li></a>
+            </ol>
+        </div>
+        <!--Setup area-->
+        <h1 id="setup-ES" class="content-ES header">Preparación</h1>
+        <h1 id="setup-EN" class="content-EN header">Setup</h1>
+        <div class="content-ES content-text">
+            Para empezar, crea una nueva hoja de cálculo en excel. Una vez que tenemos la hoja nueva en blanco, tocar la solapa de &quot;Archivo&quot;, ir a &quot;Guardar Como&quot;, seleccionar en donde querés guardar el archivo, ponerle el nombre que quieras a la hoja y finalmente (muy importante) seleccionar la opción de formato &quot;Hoja de trabajo habilitada para macros de Excel (*.xlsm)&quot;. <br>
+             En mi caso el archivo se llama mailTutorial y se ve como en la siguiente imagen:
+        </div>
+        <div class="content-EN content-text">
+            To begin, create a new spreadsheet in Excel. Once you have the new blank sheet, click on &quot;File&quot;, go to &quot;Save As&quot;, choose where you want to save the file, give the sheet whatever name you want and finally (very important) select the file format &quot;Excel Macro-Enabled Workbook (*.xlsm).&quot; <br>
+             In my case, the file is named mailTutorial and looks like in the following image:
+        </div>
+        <img src="./images/fileShow.png" class="image">
+        <div class="content-ES content-text">
+            Lo siguente que hay que corroborar es que haya una dirección tuya de e-mail añadida en el programa, si no la hay deberán iniciar sesión en Excel. Para revisar esto vayan a &quot;Archivo&quot; y seleccionen la opción &quot;Cuenta&quot;.
+            Para finalizar la preparación hay que activar la solapa de Programador si es que ya no la tenés. En caso de no tener la pestaña de Programador en la cinta de opciones toca la parte de &quot;Archivo&quot;, luego &quot;Opciones&quot;, dentro del panel de opciones ir a la parte de &quot;Personalizar la cinta de opciones&quot;, ahora seleccionar &quot;Pestañas Principales&quot; de la lista de comandos y finalmente clickear la casilla &quot;Programador&quot;, tocar &quot;Añadir&quot; y terminamos con &quot;Ok&quot;.<br>
+            <a href="https://support.microsoft.com/es-es/office/mostrar-la-pesta%C3%B1a-programador-e1192344-5e56-4d45-931b-e5fd9bea2d45">Esta es la guía oficial de Microsoft para añadir la pestaña de Programador</a> por si la necesitan. <br>
+            Si hicieron todo bien les debería aparecer una opción llamada &quot;Programador&quot; en la cinta de opciones que se ve como la siguiente imagen:
+        </div>
+        <div class="content-EN content-text">
+            The next thing we have to check is that there is an email address of yours added to the program. If there is not, you will need to sign in to Excel. To check this, go to &quot;File&quot; and select the &quot;Account&quot; option.
+            To finish the setup, you need to enable the Developer tab if you do not have it already. If the Developer tab is not visible in the ribbon, click on &quot;File&quot;, then &quot;Options&quot;, inside the options panel go to &quot;Customize Ribbon&quot;, select &quot;Main Tabs&quot; from the &quot;Choose commands from&quot; menu and now simply select the &quot;Developer&quot; option, click &quot;Add&quot; and finish by pressing &quot;OK&quot;.<br>
+            <a href="https://support.microsoft.com/en-us/office/show-the-developer-tab-e1192344-5e56-4d45-931b-e5fd9bea2d45">This is the official Microsoft guide for adding the Developer tab</a>, in case you need it. <br>
+            If you did everything correctly, your ribbon should have a tab called &quot;Developer&quot; that looks like the following image:
+        </div>
+        <img src="./images/devTab.png" class="image">
+
+        <!--Formulas area-->
+        <h1 id="formulas-ES" class="content-ES header">Hojas y fórmulas</h1>
+        <h1 id="formulas-EN" class="content-EN header">Sheets and formulas</h1>
+        <div class="content-ES content-text">
+            Con todo preparado podemos continuar, esta planilla estará compuesta de tres hojas: una que contendrá todas las plantillas de e-mail, una que contendrá las direcciones donde se enviarán los correos y otra que mantendrá un registro de todo lo que se envíe. <br>
+             Empecemos con la primer hoja donde pondremos todas las plantillas de nuestros correos, recomiendo cambiarle el nombre porque lo vamos a usar de referencia, en mi caso se va a llamar &quot;Mails&quot;. <br>
+             La hoja &quot;Mails&quot; no es compleja, en la celda <code>A1</code> ponemos el encabezado &quot;ID&quot;, en la celda <code>B1</code> &quot;SUB&quot; para los asuntos, en <code>C1</code> escribimos &quot;TEXT&quot; para el texto del correo y finalmente en <code>D1</code> &quot;URL&quot; para las direcciones a archivos locales (en tu PC) que quieras adjuntar. <br>
+             Estos son solo encabezados que únicamente sirven para aclarar por lo que no hay problema en escribir lo que quieras en las celdas <code>A1-D1</code> <br>
+             Ahora para la primer fórmula seleccionar la celda <code>A2</code> e ingresar: <code>=IF(B2 = &quot;&quot;; &quot;&quot;; ROW() - 1)</code>, esta fórmula generará de manera automática una ID a partir del número de fila al ingresar un asunto en la columna &quot;SUB&quot;. Usar autoFill para copiar la fórmula en tantas celdas como quieras según la siguiente imagen:
+        </div>
+        <div class="content-EN content-text">
+            With everything ready, we can continue. This spreadsheet will consist of three sheets: one that will contain all the e-mail templates, one that will contain all the e-mail recipient addresses and another that will keep a log of every sent e-mail. <br>
+             Let&#39;s start with the first sheet where we will keep all our templates. I recommend renaming it because the name will be used as a reference later. In my case, I named it &quot;Mails&quot;. <br>
+             The &quot;Mails&quot; sheet is simple, in the cell <code>A1</code> type &quot;ID&quot;, next in cell <code>B1</code> &quot;SUB&quot; for the subject, in <code>C1</code> type &quot;TEXT&quot; for the body of the e-mail and finally in <code>D1</code> type &quot;URL&quot; for the path to any local files (on your computer) you may want to attach. <br>
+             These are just headers added for clarity so you can write whatever you want in the cells <code>A1-D1</code> <br>
+             Now, for the first formula, select cell <code>A2</code> and enter: <code>=IF(B2 = &quot;&quot;, &quot;&quot;, ROW() - 1)</code>, this formula will automatically generate an ID for our templates whenever you add a subject in the &quot;SUB&quot; column. Use autoFill to copy the formula into as many cells as you need, like shown in the following image:
+        </div>
+        <img src="./images/emailsSheet.png" class="image">
+        <div class="content-ES content-text">
+            Ya estaría lista la primer hoja, ahora continuamos con la hoja donde mantendremos la lista de direcciones y que correo se le enviará a cada una. Creamos otra hoja y la nombramos, yo le puse &quot;Mail-To&quot;. <br>
+             Para comenzar ingresar AAAA o cualquier texto en las celdas <code>A1</code> y <code>A2</code>, estás celdas se van a usar después. Luego colocamos algunos encabezados: &quot;E-MAIL ID&quot; en la celda <code>A4</code>, &quot;E-MAIL SUB&quot; en la celda <code>A5</code> y finalmente &quot;E-MAIL RECEP&quot; en la celda <code>A6</code>. <br>
+             Antes de seguir volver a la hoja &quot;Mails&quot; y añadir uno o dos correos de prueba, yo añadi dos correos de prueba con texto genérico y una URL de una foto que quiero adjuntar al correo, pueden ver estas platillas en la imagen anterior. <br>
+             Con las plantillas de prueba hechas, regresar a la hoja &quot;Mail-To&quot; y agregar en <code>B4</code> la fórmula <code>=TRANSPOSE(FILTER(Mails!A2:A100; Mails!A2:A100 &lt;&gt; &quot;&quot;))</code>, lo que hace esta fórmula es obtener todas las ID de la hoja &quot;Mails&quot; filtrando las celdas vacías y el resultado es pasado de vertical a horizontal con la función <code>=TRANSPOSE()</code>. <br>
+             Ahora para la última fórmula, seleccionar la celda <code>B5</code> e ingresar <code>=IF(B4 = &quot;&quot;; &quot;&quot;; XLOOKUP(B4;Mails!$A$2:$A$100;Mails!$B$2:$B$100;&quot;&quot;))</code> y luego arrastrar horizontalmente con autoFill hasta donde necesiten. Esta función busca la ID con <code>XLOOKUP()</code> en la hoja &quot;Mails&quot; y devuelve el asunto correspondiente, sirve para clarificar cual correo será enviado en cada columna. <br>
+             Por último a partir de la fila 6 se pueden añadir verticalmente debajo del asunto todas las direcciones de e-mail de los destinatarios, yo añadí una dirección alternativa mía para ambos correos de prueba. <br>
+             La hoja &quot;Mail-To&quot; les debería quedar como en la siguiente imagen a excepción de las direcciones de e-mail:
+        </div>
+        <div class="content-EN content-text">
+            First sheet done, now we move on to the second in which we will store the e-mail addresses of our recipients and which template will be used for each. So we create and rename another sheet, I named it &quot;Mail‑To&quot;. <br>
+            Begin by entering AAAA or any text into the cells <code>A1</code> and <code>A2</code>, we will use these later. Then add some headers: &quot;E‑MAIL ID&quot; in cell <code>A4</code>, &quot;E‑MAIL SUB&quot; in cell <code>A5</code> and finally &quot;E‑MAIL RECEP&quot; in cell <code>A6</code>. <br>
+            Before proceeding, go back to the &quot;Mails&quot; sheet and add one or two e-mails for testing. I added two test emails with some generic text and an URL to a picture i want to attach, you can see them in the previous image. <br>
+            Once the testing templates are ready, return to the &quot;Mail‑To&quot; sheet and in the cell <code>B4</code> enter the formula <code>=TRANSPOSE(FILTER(Mails!A2:A100; Mails!A2:A100 &lt;&gt; &quot;&quot;))</code>, this formula gets IDs from the &quot;Mails&quot; sheet by filtering out blank cells and then converts the result from vertical to horizontal with <code>TRANSPOSE()</code>. <br>
+            Now for the final formula, select cell <code>B5</code> and enter <code>=IF(B4 = &quot;&quot;; &quot;&quot;; XLOOKUP(B4;Mails!$A$2:$A$100;Mails!$B$2:$B$100;&quot;&quot;))</code> and drag horizontally as much as needed using autoFill. This function looks up each filtered ID with a <code>XLOOKUP()</code> function and returns the corresponding subject, makes clear which e-mail will be sent in each column. <br>
+            Finally, starting from row 6 you can start vertically listing every e-mail recipient address under each subject. I added an alternate address of mine for both test e-mails. <br>
+            The &quot;Mail‑To&quot; sheet should end up looking like the following image, except for the e-mail addresses:
+        </div>
+        <img src="./images/mailtoSheet.png" class="image">
+        <div class="content-ES content-text">
+            Ahora creamos la tercera y última hoja donde se mantendrá un registro de todos los correos enviados, a esta hoja la nombre &quot;Logs&quot;. <br>
+            Lo único que hay que hacer en esta hoja (por ahora) es insertar una tabla para después. Entonces seleccionamos el rango <code>A1:B1</code>, apretamos las teclas CTRL+T para insertar una tabla y antes de tocar Ok tildamos la opción &quot;La tabla tiene encabezados&quot;. <br>
+            Con la tabla hecha le cambiamos los encabezados para que sean más descriptivos: al primero lo nombré &quot;E-MAIL SUB&quot; para poner en esa columna el asunto del correo enviado y al segundo &quot;E-MAIL RECEP&quot; para la dirección a donde se envió. <br>
+            Por último hay que cambiarle el nombre a la tabla para usar como referencia, para hacer esto seleccionar cualquier celda de la tabla (<code>A1</code> por ejemplo), ir a la pestaña &quot;Diseño de tabla&quot; en la cinta de opciones y debajo de la opción &quot;Nombre de la tabla&quot; (que debería estar en la esquina izquierda de las opciones de diseño de tabla) escribir el nuevo nombre, yo le puse &quot;TABLOGS&quot;. <br>
+            Les debería quedar una tabla vacía de dos columnas con el nombre &quot;TABLOGS&quot; (tener en cuenta el nombre si eligieron otro) como en la siguiente imagen:
+        </div>
+        <div class="content-EN content-text">
+            Now we create the third and final sheet where we will keep a record of all sent e-mails; I named this sheet &quot;Logs&quot;. <br>
+            All we have to do on this sheet (for now) is to insert a table for later use. So select the range <code>A1:B1</code>, press the keys CTRL+T to insert a table and before clicking OK check the &quot;My table has headers&quot; option. <br>
+            After the table is created we are going to change the headers to make them more descriptive: I named the first one &quot;E-MAIL SUB&quot; to place in that column the subject of the sent e-mails and the second one &quot;E-MAIL RECEP&quot; to store the recipient addresses. <br>
+            To wrap this sheet up, we have to rename the table to use it as a reference. To do this, select any cell in the table (<code>A1</code> for example), then go to the &quot;Table Design&quot; tab on the ribbon and under the &quot;Table Name&quot; option (which should be on the left corner of the table design options) enter the new name, I named it &quot;TABLOGS&quot;. <br>
+            You should end up with an empty two column table named &quot;TABLOGS&quot; (keep the name in mind if you chose a different one) like in the following image:
+        </div>
+        <img src="./images/logsSheet.png" class="image">
+
+        <!--Code area-->
+        <h1 id="code-ES" class="content-ES header">Código y controles</h1>
+        <h1 id="code-EN" class="content-EN header">Code and controls</h1>
+        <div class="content-ES content-text">
+            Con todas las hojas listas podemos empezar con la parte divertida, ir a la hoja &quot;Mail-To&quot; y abrir la pestaña &quot;Programador&quot;. Hacer click en &quot;Insertar&quot; y elegir el &quot;Botón de comando&quot; debajo de la categoría &quot;Controles ActiveX&quot;. Después de haber creado el botón darle click derecho y seleccionar el menú de propiedades, cambiar la propiedad &quot;Name&quot; a &quot;MailToBtn&quot; y la propiedad &quot;Caption&quot; (que está más abajo) a lo que quieras, es el texto del botón, sugiero escribirle &quot;Enviar&quot; o similar para dejar en claro su función, yo le puse &quot;E-Mail >>&quot;. Antes de cerrar el menú pueden cambiar otras propiedades como &quot;Font&quot; (Fuente), &quot;ForeColor&quot; (Color de fuente), &quot;Height&quot; (Altura), &quot;Left&quot; (Ancho) o &quot;Shadow&quot; (Borde tipo sombra), son todas opciones únicamente cosméticas. <br>
+            Al terminar de configurar el botón y haber cerrado el menú de propiedades, darle click derecho al botón otra vez y seleccionar &quot;Ver código&quot;. Luego de hacer esto se tendría que abrir la ventana de VBA (Visual Basic for Applications) y verse como en la siguiente imagen:
+        </div>
+        <div class="content-EN content-text">
+            With all three sheets ready, we can start with the fun part, go to the &quot;Mail-To&quot; sheet and open the &quot;Developer&quot; tab. Click on &quot;Insert&quot; and choose the &quot;Command Button&quot; under the &quot;ActiveX Controls&quot; category. After creating the button, right-click it and select the properties menu. Change the &quot;Name&quot; property to &quot;MailToBtn&quot; and the &quot;Caption&quot; property (which is further down) to whatever you want, it is just the text on the button, I suggest writing &quot;Send&quot; or something similar to make the button&#39;s function clear, I wrote &quot;E-Mail >>&quot;. Before closing the menu, you can change other properties like &quot;Font&quot;, &quot;ForeColor&quot; (Font&#39;s color), &quot;Height&quot;, &quot;Left&quot; (Width) or &quot;Shadow&quot;, these are all cosmetic only options. <br>
+            After finishing the button configuration and closing the properties menu, right-click the button again and select &quot;View Code&quot;. After doing this, the VBA (Visual Basic for Applications) window should open and look like in the following image:
+        </div>
+        <img src="./images/vbaWindow.png" class="image">
+        <div class="content-ES content-text">
+            Antes de continuar asegurarse de que el menu desplegable marcado en la imagen anterior diga &quot;Click&quot;, porque eso significa que el código que vamos a insertar a continuación se ejecutará al hacerle click al botón &quot;MailToBtn&quot;. <br>
+            Otra cosa que hay que hacer es habilitar las librerias de Outlook y Forms, para esto ir al menú de &quot;Herramientas&quot; y seleccionar la opción &quot;Referencias...&quot;. Buscar y tildar las casillas &quot;Microsoft Outlook 16.0 Object Library&quot; y &quot;Microsoft Forms 2.0 Object Library&quot;, hacer click en Ok y ya podemos usar las librerias en el código.
+            Con el evento &quot;Click&quot; seleccionado y las librerias cargadas, copiar el siguiente bloque de código y pegarlo entre las líneas &quot;Private Sub MailToBtn_Click()&quot; y &quot;End Sub&quot;. La explicación del código estará en el mismo, hecha con comentarios:
+        </div>
+        <div class="content-EN content-text">
+            Before continuing, make sure that the dropdown menu marked in the previous image says &quot;Click&quot;, because that means our code will execute when we click the &quot;MailToBtn&quot; button. <br>
+            Another thing we need to do is enabling the Outlook and Forms libraries. To do this, go to the &quot;Tools&quot; menu and select the &quot;References...&quot; option. Search and check the boxes for &quot;Microsoft Outlook 16.0 Object Library&quot; and &quot;Microsoft Forms 2.0 Object Library&quot; and then click OK, now we can use these libraries in the code.
+            With the &quot;Click&quot; event selected and the libraries loaded, copy the following code block and paste it between the lines &quot;Private Sub MailToBtn_Click()&quot; and &quot;End Sub&quot;. The explanation for it will be in the code itself, as comments:
+        </div>
+        <div class="content-ES content-code">
+            <button id="ES-code-copy-btn" class="copy-button"><img src="./images/copy-btn.svg">  Copiar código</button>
+            &#39;Lo primero que hacemos es chequear que hayan plantillas de e-mails para enviar
+            &#39;Para lograr esto usamos la función COUNT() en la fila 4 para contar la cantidad de IDs tomadas de la hoja &quot;Mails&quot;
+            &#39;También creamos e inicializamos variables para referirnos a las distintas hojas del documento
+            Dim HojaMailTo As Worksheet
+            Set HojaMailTo = Worksheets(&quot;Mail-To&quot;)
+            
+            Dim HojaMails As Worksheet
+            Set HojaMails = Worksheets(&quot;Mails&quot;)
+            
+            Dim HojaLogs As Worksheet
+            Set HojaLogs = Worksheets(&quot;Logs&quot;)
+            
+            &#39;Si la funcion COUNT() no encuentra más de 1 ID, se sale del evento y no se ejecuta el resto, mostrando porque en la celda A2
+            If WorksheetFunction.Count(HojaMailTo.Range(&quot;4:4&quot;)) &lt;= 0 Then
+                HojaMailTo.Range(&quot;A2&quot;).Value = &quot;No hay e-mails para enviar&quot;
+                End
+            End If
+            
+            &#39;Guardamos el resultado de la función COUNT()
+            Dim cantidadIDs As Integer
+            cantidadIDs = WorksheetFunction.Count(HojaMailTo.Range(&quot;4:4&quot;))
+            
+            &#39;Ahora procedemos a hacer un bucle para recorrer cada columna con una ID
+            &#39;Creamos una variable para usar de indice y la inicializamos con el valor 2, que es el número de columna donde aparece nuestra primer ID de plantilla
+            &#39;Aparte creamos otras variables que se reutilizaran en el bucle
+            &#39;El bucle se ejecutará partiendo de la columna 2 hasta la columna &quot;cantidadIDs + 1&quot;, el +1 es por la primer columna que solo posee encabezados
+            Dim indiceID As Integer
+            Dim ID As Integer
+            Dim cantidadDirecciones As Integer
+            Dim OutlookApp As Object
+            
+            Set OutlookApp = CreateObject(&quot;Outlook.Application&quot;)
+            
+            &#39;Mostramos que se están procesando los correos
+            HojaMailTo.Range(&quot;A2&quot;).Value = &quot;Trabajando&quot;
+            
+            For indiceID = 2 To (cantidadIDs + 1) Step 1
+            &#39;Lo primero que hay que hacer es contar la cantidad de direcciones que hay en la columna, para esto usamos COUNTIF() y tomamos la columna actual usando OFFSET()
+                cantidadDirecciones = WorksheetFunction.CountIf(HojaMailTo.Range(&quot;A:A&quot;).Offset(0, (indiceID - 1)), &quot;*@*.com*&quot;)
+            
+                &#39;Si hay por lo menos 1 dirección podemos enviar nuestros correos
+                If cantidadDirecciones &gt; 0 Then
+                    &#39;Creamos variables con las partes de la plantilla y buscamos el contenido en la hoja Mails con XLOOKUP()
+                    Dim emailSUB As String
+                    Dim emailTEXT As String
+                    Dim emailURL As String
+                    Dim esURLValida As Boolean
+                    
+                    ID = HojaMailTo.Cells(4, indiceID)
+                    emailSUB = WorksheetFunction.XLookup(ID, HojaMails.Range(&quot;$A:$A&quot;), HojaMails.Range(&quot;$B:$B&quot;))
+                    emailTEXT = WorksheetFunction.XLookup(ID, HojaMails.Range(&quot;$A:$A&quot;), HojaMails.Range(&quot;$C:$C&quot;))
+                    emailURL = WorksheetFunction.XLookup(ID, HojaMails.Range(&quot;$A:$A&quot;), HojaMails.Range(&quot;$D:$D&quot;))
+                
+                    &#39;Si hay una URL verificamos que sea válida
+                    &#39;Si falla la verificación se muestra un cartel y se saltean los correos de la plantilla con la URL inválida
+                    esURLValida = False
+                    If emailURL &lt;&gt; &quot;&quot; Then
+                        If Dir(emailURL) = &quot;&quot; Then
+                            MsgBox &quot;El siguiente archivo no se encontró:&quot; & vbNewLine & emailURL & vbNewLine & &quot;Los correos con el asunto: &#39;&quot; & emailSUB & &quot;&#39; no se enviarán.&quot;, vbOKOnly, &quot;Error&quot;
+                            cantidadDirecciones = 0
+                        End If
+                    esURLValida = True
+                    End If
+                    
+                    &#39;A partir de la fila 6 se añaden las direcciones de manera vertical
+                    &#39;Por esto creamos otro bucle donde recorremos la columna hasta enviar todos los correos encontrados con el COUNTIF() de más arriba
+                    &#39;Además creamos una variable para referirnos a la tabla TABLOGS de la hoja Logs
+                    Dim tablaRegistros As ListObject
+                    Set tablaRegistros = HojaLogs.ListObjects(&quot;TABLOGS&quot;)
+                    Dim indiceDireccion As Integer
+                    indiceDireccion = 6
+                    
+                    Do While cantidadDirecciones &gt; 0
+                        &#39;Ignorar celdas que no cumplan el patrón &quot;*@*.com*&quot;
+                        If Cells(indiceDireccion, indiceID).Value Like &quot;*@*.com*&quot; Then
+                            Dim correo As Object
+                            Set correo = OutlookApp.CreateItem(0)
+                            
+                            &#39;Cargamos todos los datos del correo y lo enviamos con Send
+                            &#39;Si quieren ver el correo para revisarlo y/o enviarlo manualmente, reemplazar &quot;.Send&quot; por &quot;.Display&quot;
+                            With correo
+                                .To = Cells(indiceDireccion, indiceID).Value
+                                .Subject = emailSUB
+                                .Body = emailTEXT
+                                If esURLValida Then
+                                    .Attachments.Add (emailURL)
+                                End If
+                                .Send
+                            End With
+                            
+                            Set correo = Nothing
+                            
+                            &#39;Registramos el envio en la hoja Logs, dentro de la tabla TABLOGS
+                            Dim nuevoRegistro As ListRow
+                            Set nuevoRegistro = tablaRegistros.ListRows.Add
+                            nuevoRegistro.Range(1, 1).Value = emailSUB
+                            nuevoRegistro.Range(1, 2).Value = Cells(indiceDireccion, indiceID).Value
+                            
+                            cantidadDirecciones = cantidadDirecciones - 1
+                        End If
+                
+                        indiceDireccion = indiceDireccion + 1
+                    Loop
+                End If
+            Next indiceID
+            
+            &#39;Esperamos a que se envien todos los correos y mostramos el progreso en la celda A2 de la hoja Mail-To
+            Dim outlookApi As Outlook.Namespace
+            Dim bandejaSalida As Outlook.Folder
+            Dim cantidadCorreosRestantes As Integer
+         
+            Set outlookApi = OutlookApp.GetNameSpace(&quot;MAPI&quot;)
+            Set bandejaSalida = outlookApi.GetDefaultFolder(olFolderOutbox)
+            cantidadCorreosRestantes = bandejaSalida.Items().Count
+            
+            &#39;Actualizamos el contador cada 1 segundo hasta terminar
+            Do While cantidadCorreosRestantes &gt; 0
+                cantidadCorreosRestantes = bandejaSalida.Items().Count
+                HojaMailTo.Range(&quot;A2&quot;).Value = cantidadCorreosRestantes & &quot; E-Mails restantes&quot;
+                Application.Wait Now + #12:00:01 AM#
+            Loop
+            
+            &#39;Cerramos la aplicación de Outlook y limpiamos el resto de los demás objetos
+            &#39;Finalmente indicamos que el código terminó su ejecución
+            &#39;En caso de usar &quot;.Display&quot; en vez de &quot;.Send&quot; deberán escribir &quot;End&quot; justo debajo de este comentario para evitar que se cierre la aplicación de Outlook. En este caso la van a tener que cerrar manualmente o usando el botón &quot;Reset&quot; (el cuadrado azul en el cuadro de herramientas)
+            
+            OutlookApp.Quit
+            outlookApi.Application.Quit
+            Set OutlookApp = Nothing
+            Set outlookApi = Nothing
+            Set bandejaSalida = Nothing
+            HojaMailTo.Range(&quot;A2&quot;).Value = &quot;Listo&quot;
+        </div>
+        <div class="content-EN content-code">
+            <button id="EN-code-copy-btn" class="copy-button"><img src="./images/copy-btn.svg">  Copy code</button>
+            &#39;The first thing we need to do is checking if there is any email templates to send
+            &#39;To do this we use the COUNT() function in row 4 to count the amount of IDs found by the FILTER() function
+            &#39;We also create and initialize variables to refer to the different sheets in the document
+            Dim MailToSheet As Worksheet
+            Set MailToSheet = Worksheets(&quot;Mail-To&quot;)
+            
+            Dim MailsSheet As Worksheet
+            Set MailsSheet = Worksheets(&quot;Mails&quot;)
+            
+            Dim LogsSheet As Worksheet
+            Set LogsSheet = Worksheets(&quot;Logs&quot;)
+            
+            &#39;If the COUNT() function does not find more than 1 ID, it exits the event and does not execute the rest, showing the reason in cell A2
+            If WorksheetFunction.Count(MailToSheet.Range(&quot;4:4&quot;)) &lt;= 0 Then
+                MailToSheet.Range(&quot;A2&quot;).Value = &quot;No e-mails to send&quot;
+                End
+            End If
+            
+            &#39;We save the COUNT() result
+            Dim idCount As Integer
+            idCount = WorksheetFunction.Count(MailToSheet.Range(&quot;4:4&quot;))
+        
+            &#39;Now we proceed to loop through each column with an ID
+            &#39;We create a variable to use as an index and initialize it with the value 2, which is the column number where our first template appears
+            &#39;We also create other variables that will be reused in the loop
+            &#39;The loop will run through all columns with a template ID, starting from column 2 up to column &quot;idCount + 1&quot;, the +1 is for the first column which only has headers
+            Dim idIndex As Integer
+            Dim ID As Integer
+            Dim addressCount As Integer
+            Dim OutlookApp As Object
+            
+            Set OutlookApp = CreateObject(&quot;Outlook.Application&quot;)
+            
+            &#39;We display that we are processing the e-mails
+            MailToSheet.Range(&quot;A2&quot;).Value = &quot;Working&quot;
+            
+            For idIndex = 2 To (idCount + 1) Step 1
+                &#39;The first thing to do is count the number of addresses in the column, for this we use COUNTIF() and reference the current column using OFFSET()
+                addressCount = WorksheetFunction.CountIf(MailToSheet.Range(&quot;A:A&quot;).Offset(0, (idIndex - 1)), &quot;*@*.com*&quot;)
+            
+                &#39;If there is at least 1 address we can send our e-mails
+                If addressCount &gt; 0 Then
+                    &#39;We create variables with the parts of our template and search the content in the Mails sheet with XLOOKUP()
+                    Dim emailSUB As String
+                    Dim emailTEXT As String
+                    Dim emailURL As String
+                    Dim isURLValid As Boolean
+                    
+                    ID = MailToSheet.Cells(4, idIndex)
+                    emailSUB = WorksheetFunction.XLookup(ID, MailsSheet.Range(&quot;$A:$A&quot;), MailsSheet.Range(&quot;$B:$B&quot;))
+                    emailTEXT = WorksheetFunction.XLookup(ID, MailsSheet.Range(&quot;$A:$A&quot;), MailsSheet.Range(&quot;$C:$C&quot;))
+                    emailURL = WorksheetFunction.XLookup(ID, MailsSheet.Range(&quot;$A:$A&quot;), MailsSheet.Range(&quot;$D:$D&quot;))
+                
+                    &#39;If there is an URL we verify that it is valid
+                    &#39;If verification fails we show a pop-up and e-mails with the invalid URL are avoided
+                    isURLValid = False
+                    If emailURL &lt;&gt; &quot;&quot; Then
+                        If Dir(emailURL) = &quot;&quot; Then
+                            MsgBox &quot;The following file was not found:&quot; & vbNewLine & emailURL & vbNewLine & &quot;E-Mails with the subject: &#39;&quot; & emailSUB & &quot;&#39; will not be sent.&quot;, vbOKOnly, &quot;Error&quot;
+                            addressCount = 0
+                        End If
+                    isURLValid = True
+                    End If
+                    
+                    &#39;Starting from row 6, the addresses are added vertically
+                    &#39;Because of this, we create another loop where we go through the column until all emails found with the COUNTIF() above are sent
+                    &#39;We also create a variable to refer to the TABLOGS table on the Logs sheet
+                    Dim logTable As ListObject
+                    Set logTable = LogsSheet.ListObjects(&quot;TABLOGS&quot;)
+                    Dim addressIndex As Integer
+                    addressIndex = 6
+                    
+                    Do While addressCount &gt; 0
+                        &#39;Ignore cells that do not match the &quot;@.com*&quot; pattern
+                        If Cells(addressIndex, idIndex).Value Like &quot;*@*.com*&quot; Then
+                            Dim mail As Object
+                            Set mail = OutlookApp.CreateItem(0)
+                            
+                            &#39;We load all the mail data and send it with &quot;Send&quot;
+                            &#39;If you want to check the mail and/or send it manually, replace &quot;.Send&quot; for &quot;.Display&quot;
+                            With mail
+                                .To = Cells(addressIndex, idIndex).Value
+                                .Subject = emailSUB
+                                .Body = emailTEXT
+                                If isURLValid Then
+                                    .Attachments.Add (emailURL)
+                                End If
+                                .Send
+                            End With
+                            
+                            Set mail = Nothing
+                            
+                            &#39;We save the sent email in our TABLOGS table in the Logs sheet
+                            Dim newLog As ListRow
+                            Set newLog = logTable.ListRows.Add
+                            newLog.Range(1, 1).Value = emailSUB
+                            newLog.Range(1, 2).Value = Cells(addressIndex, idIndex).Value
+                            
+                            addressCount = addressCount - 1
+                        End If
+                
+                        addressIndex = addressIndex + 1
+                    Loop
+                End If
+            Next idIndex
+            
+            &#39;Wait until all e-mails are sent and show progress in cell A2 on the Mail-To sheet
+            Dim outlookApi As Outlook.Namespace
+            Dim outBox As Outlook.Folder
+            Dim remainingMailsCount As Integer
+         
+            Set outlookApi = OutlookApp.GetNameSpace(&quot;MAPI&quot;)
+            Set outBox = outlookApi.GetDefaultFolder(olFolderOutbox)
+            remainingMailsCount = outBox.Items().Count
+            
+            &#39;Update the counter after every second until we finish
+            Do While remainingMailsCount &gt; 0
+                remainingMailsCount = outBox.Items().Count
+                MailToSheet.Range(&quot;A2&quot;).Value = remainingMailsCount & &quot; pending E-Mails&quot;
+                Application.Wait Now + #12:00:01 AM#
+            Loop
+            
+            &#39;We close the Outlook application and clean up the other objects
+            &#39;Finally we indicate that the code finished has finished
+            &#39;In case of using &quot;.Display&quot; instead of &quot;.Send&quot;, you will have to write &quot;End&quot; right below this comment to prevent the Outlook application from closing. In this case, you will have to close it manually or by using the &quot;Reset&quot; button (the blue square in the toolbar)
+            
+            OutlookApp.Quit
+            outlookApi.Application.Quit
+            Set OutlookApp = Nothing
+            Set outlookApi = Nothing
+            Set outBox = Nothing
+            MailToSheet.Range(&quot;A2&quot;).Value = &quot;Done&quot;
+        </div>
+        <div class="content-ES content-text">
+            Después de pegar el código ir a &quot;Archivo&quot; y guardar. Tras hacer eso, cerrar la ventana de VBA e ir a la pestaña de &quot;Programador&quot; en Excel, buscar el botón &quot;Modo Diseño&quot; y destildarlo (si al clickear el botón &quot;MailToBtn&quot; este se selecciona entonces el modo de diseño no fue desactivado). <br>
+            Ahora pueden clickear el botón en &quot;Mail-To&quot; para ejecutar el código y enviar los correos. Podrán ver el progreso en la celda <code>A2</code>, en la celda <code>A1</code> reemplazar AAAA o el texto que hayan puesto por un encabezado como &quot;Estado&quot; o &quot;Progreso&quot;. <br>
+            Luego de haber enviado por lo menos 1 e-mail, pueden revisar el historial guardado en la hoja &quot;Logs&quot;. <br>
+            Para comprobar que todo funcione bien envié a mi dirección alternativa de Gmail 2 correos con las plantillas creadas anteriormente, el resultado se puede ver en la siguiente imagen:
+        </div>
+        <div class="content-EN content-text">
+            After pasting the code, go to &quot;File&quot; and save. Then close the VBA window and go to the &quot;Developer&quot; tab in Excel, find the &quot;Design Mode&quot; button and uncheck it (if clicking the &quot;MailToBtn&quot; button selects it, it means the design mode is still active). <br>
+            Now you can click the &quot;MailToBtn&quot; button in the &quot;Mail-To&quot; sheet to run the code and send the emails. You will see the progress in cell A2, in cell A1 replace AAAA or whatever text you wrote earlier with a header like &quot;Status&quot; or &quot;Progress&quot;. <br>
+            When you are done sending at least 1 e-mail you can check the saved record in the &quot;Logs&quot; sheet.  <br>
+            To test that everything is working properly, I sent 2 emails to my alternate Gmail address using the templates created earlier. The result can be seen in the following image:
+        </div>
+        <img src="./images/testingResult.png" class="image">
+
+        <!--Style area-->
+        <h1 id="style-ES" class="content-ES header">Reglas de estilo</h1>
+        <h1 id="style-EN" class="content-EN header">Style rules</h1>
+        <div class="content-ES content-text">
+            Esta parte del tutorial es completamente opcional porque solo sirve para hacer que las hojas sean más legibles y se vean más bonitas. <br>
+            Lo que haremos será usar fórmulas para aplicar formato condicional en, primero, la hoja &quot;Mail-To&quot;. Esto se hace de la siguiente manera: Ir a la pestaña &quot;Inicio&quot;, presionar CTRL+A para seleccionar toda la hoja, clickear el botón &quot;Formato condicional&quot; y seleccionar la opción &quot;Nueva Regla...&quot;. Tras abrir el menú de formato condicional, en tipo de regla elegir &quot;Usar una fórmula que determine las celdas para aplicar formato&quot; y en el cuadro de fórmula ingresar <code>=AND(MOD(COLUMN();2) = 0; ROW() &gt;= 6)</code>, finalmente clickear el botón &quot;Formato...&quot; y en ese menú formatear a gusto, yo simplemente elegí un color de fondo claro (recomiendo usar colores claros o dejar el blanco), al terminar de formatear tocar Ok y listo. <br>
+            Para complementar la regla anterior repetimos el mismo proceso pero esta vez ingresamos la fórmula <code>=AND(MOD(COLUMN();2) &lt;&gt; 0; ROW() &gt;= 6; COLUMN() &lt;&gt; 1)</code> y creamos otro formato, yo elegí un color claro distinto. <br>
+            Para explicar un poco, el formato que elijan será aplicado a las celdas que cumplan con las condiciones descritas en la fórmula introducida. En el caso de <code>=AND(MOD(COLUMN();2) &lt;&gt; 0; ROW() &gt;= 6; COLUMN() &lt;&gt; 1)</code> se van a pintar todas las celdas con un número de columna impar (&quot;MOD(COLUMN();2) &lt;&gt; 0&quot;, el resto de [Número de columna / 2] es distinto de 0) Y estén de la fila 6 en adelante (&quot;ROW() &gt;= 6&quot;) Y no estén en la columna 1 (&quot;COLUMN() &lt;&gt; 1&quot;). <br>
+            Acá hay un par de fórmulas extra para las celdas que contienen: <br>
+            Estado de progreso: <code>=AND(ROW() &lt;= 2; COLUMN() = 1)</code> <br>
+            Encabezados: <code>=AND(ROW() &gt; 3; ROW() &lt; 7; COLUMN() = 1)</code> <br>
+            IDs y asuntos: <code>=AND(ROW() &gt; 3; ROW() &lt; 6; COLUMN() &lt;&gt; 1)</code> <br><br>
+            Con todas las reglas anteriores aplicadas la hoja &quot;Mail-To&quot; (con los formatos que yo elegí) se ve como en la siguiente imagen: <br>
+        </div>
+        <div class="content-EN content-text">
+            This part of the tutorial is completely optional, as it only serves to make the sheets prettier and more readable. <br>
+            What we are going to do is use formulas to apply conditional formatting, starting from the &quot;Mail-To&quot; sheet. This is done as follows: go to the &quot;Home&quot; tab, press CTRL+A to select the entire sheet, click the &quot;Conditional Formatting&quot; button and select the &quot;New Rule...&quot; option. After opening the conditional formatting menu, in rule type choose &quot;Use a formula to determine which cells to format&quot; and in the formula box enter <code>=AND(MOD(COLUMN();2) = 0; ROW() &gt;= 6)</code>. Finally, click the &quot;Format...&quot; button and create whatever format you like, I simply chose a light background color (I recommend using light colors or leaving it white). Once you finish formatting, click OK and done. <br>
+            To complement the previous rule, repeat the same process but this time enter the formula <code>=AND(MOD(COLUMN();2) &lt;&gt; 0; ROW() &gt;= 6; COLUMN() &lt;&gt; 1)</code> and create another format, I chose a different light color. <br>
+            To explain a bit, the format you choose will be applied to the cells that meet the conditions described in the entered formula. In the case of <code>=AND(MOD(COLUMN();2) &lt;&gt; 0; ROW() &gt;= 6; COLUMN() &lt;&gt; 1)</code> all cells with an odd column number (&quot;MOD(COLUMN();2) &lt;&gt; 0&quot;, the remainder of [Column number / 2] is not 0) AND that are from row 6 onward (&quot;ROW() &gt;= 6&quot;) AND that are not in column 1 (&quot;COLUMN() &lt;&gt; 1&quot;) will be formatted. <br>
+            Here are a few extra formulas for cells that contain: <br>
+            Progress status: <code>=AND(ROW() &lt;= 2; COLUMN() = 1)</code> <br>
+            Headers: <code>=AND(ROW() &gt; 3; ROW() &lt; 7; COLUMN() = 1)</code> <br>
+            IDs and subjects: <code>=AND(ROW() &gt; 3; ROW() &lt; 6; COLUMN() &lt;&gt; 1)</code> <br><br>
+            With all of the rules above applied, the &quot;Mail-To&quot; sheet (with the formats I chose) looks like in the following image:
+        </div>
+        <img src="./images/mailtoSheetStyled.png" class="image">
+        <div class="content-ES content-text">
+            Antes de terminar, pueden usar las siguientes fórmulas para la hoja &quot;Mails&quot;: <br>
+            Encabezados: <code>=AND(ROW() = 1;COLUMN() &lt; 5)</code> <br>
+            Filas pares: <code>=AND(MOD(ROW();2) = 0; ROW() &gt; 1; COLUMN() &lt; 5)</code> <br>
+            Filas impares: <code>=AND(MOD(ROW();2) &lt;&gt; 0; ROW() &gt; 1; COLUMN() &lt; 5)</code> <br>
+            Imagen para demostrar resultado:
+        </div>
+        <div class="content-EN content-text">
+            Before finishing, you can use the following formulas for the &quot;Mails&quot; sheet: <br>
+            Headers: <code>=AND(ROW() = 1;COLUMN() &lt; 5)</code> <br>
+            Even rows: <code>=AND(MOD(ROW();2) = 0; ROW() &gt; 1; COLUMN() &lt; 5)</code> <br>
+            Odd rows: <code>=AND(MOD(ROW();2) &lt;&gt; 0; ROW() &gt; 1; COLUMN() &lt; 5)</code> <br>
+            Image to show the result:
+        </div>
+        <img src="./images/emailsSheetStyled.png" class="image">
+
+        <!--End-->
+        <div class="content-ES content-text">
+            <br>
+            Y bueno eso es todo, espero que les haya sido útil o interesante.
+        </div>
+        <div class="content-EN content-text">
+            <br>
+            Well, that&#39;s it, I hope this was useful or interesting.
+        </div>
+    </div>
+</body>
+</html>
